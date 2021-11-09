@@ -1,15 +1,15 @@
 import * as cdk from '@aws-cdk/core';
-// import * as sqs from '@aws-cdk/aws-sqs';
+import { VpcStack } from "../lib/vpc-stack";
+import { RDSStack } from "../lib/rds-stack";
 
 export class FundasyDbStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) { 
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    const vpcStackEntity = new VpcStack(this, "VpcStack");
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'FundasyDbQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    const rdsStack = new RDSStack(this, "RDSStack", {
+      vpc: vpcStackEntity.vpc
+    });
   }
 }
