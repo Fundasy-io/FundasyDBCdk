@@ -1,3 +1,15 @@
+## Killing connections to DB
+
+View connections
+```
+=> SELECT pid, client_addr, state, application_name, backend_start FROM pg_stat_activity;
+```
+
+Killing connections
+```
+=> SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE client_addr='<ip address>' AND state='idle';
+```
+
 # Welcome to your CDK TypeScript project!
 
 This is a blank project for TypeScript development with CDK.
